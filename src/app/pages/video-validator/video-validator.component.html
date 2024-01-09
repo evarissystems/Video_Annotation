@@ -1,0 +1,128 @@
+<!-- Loader -->
+<div id="preloader" *ngIf="loading">
+    <div id="status">
+        <div class="spinner-chase">
+            <div class="chase-dot"></div>
+            <div class="chase-dot"></div>
+            <div class="chase-dot"></div>
+            <div class="chase-dot"></div>
+            <div class="chase-dot"></div>
+            <div class="chase-dot"></div>
+        </div>
+    </div>
+</div>
+
+
+<div class="detailsAnnotate">
+    <span class="ids"><b>Video ID :</b> {{ Video_id }} </span>
+    <Span class="ids"><b>Video Name :</b> {{ video_Name }}</Span>
+    <span class="ids"><b>Validators Name : {{ usrName }}</b> </span>
+    <span class="ids"><b>Slice No : {{pageIndex}}</b></span>
+    <span class="ids"><b>Page No : </b></span>
+    <span class="ids"><b>Total Slicing Done : </b> </span>
+</div>
+
+<div class="wrapper">
+    <div class="videoContainer">
+        <video #videoElement controls width="340" height="220" [src]="videoUrl"></video>
+        <div class="btnContainer">
+            <!-- <div *ngIf="!isPlaying">
+        <button class="btn-soft-primary" (click)="playVideo()">Play</button>
+      </div>
+
+      <div *ngIf="isPlaying">
+        <button class="btn-soft-primary" (click)="pauseVideo()">Pause</button>
+      </div> -->
+            <button class="btn-soft-primary" id="btnPlayPause" (click)="playPause()">Play/Pause</button>
+            <br />
+
+            <div>
+                <button class="btn-soft-primary" id="btnS" (click)="startButtonClick()" [disabled]="!isDisabled">
+          Start Time
+        </button> :
+
+                <input type="text" class="" [(ngModel)]="start_time" required />
+                <br /><br />
+
+                <button class="btn-soft-primary" id="btnS" (click)="EndButtonClick()" [disabled]="isDisabled">
+          End Time
+        </button> :
+                <input type="text" [(ngModel)]="end_time" required />
+
+            </div>
+            <br /><br />
+            <div class="ctn2">
+                <!-- end button div was here -->
+                <button class="btn-soft-primary" (click)="nextImageData()" [disabled]="!nextbuttonClicked">
+            Next Page</button
+          ><br /><br />
+          <button class="btn-soft-primary" (click)="previousImageData()" [disabled]="!previousbuttonClicked">
+            Previous Page</button
+          ><br /><br />
+          </div>
+        </div>
+    </div>
+    <div class="canvas">
+        <canvas #canvas id="myCanvas" width="600" height="650" style="border: 1px solid grey"></canvas>
+
+    </div>
+    <div class="form-check">
+        <form>
+            <div>
+                <label for="Subject">Topic : </label><br />
+                <input type="text" class="long-input" name="subject" [(ngModel)]="subject" required /><br />
+                <label for="Question">Question : </label><br />
+                <button id="recordButton" (click)="startRecording()" *ngIf="!isUserSpeaking"><i class="mdi mdi-microphone-off"></i></button>
+                <button id="recordButton" (click)="stopRecording()" *ngIf="isUserSpeaking"><i class="mdi mdi-microphone"></i>
+                </button>
+                <!-- <input
+          type="text"
+          class="long-input"
+          name="question"
+          [(ngModel)]="question"
+        /><br /> -->
+
+                <textarea style="width: 100%; resize: vertical" rows="4" name="question" [(ngModel)]="question"></textarea>
+                <label for="Key Person 1">Key Person 1 : </label><br />
+                <input type="text" class="long-input" name="keyPerson1" [(ngModel)]="keyPerson1" required /><br />
+                <label for="Key Person 2">Key Person 2 : </label><br />
+                <input type="text" class="long-input" name="keyPerson2" [(ngModel)]="keyPerson2" /><br />
+                <!-- <label for="location">Location : </label><br />
+
+                <input type="text" class="long-input" name="location" [(ngModel)]="location" required /><br />
+                <label for="Tag 2">Tag 2 : </label><br />
+
+                <input type="text" class="long-input" name="tag2" [(ngModel)]="tag2" /> -->
+                <label for="Tag 2">Page No : </label><br />
+                <input type="text" class="long-input" name="Page No" [(ngModel)]="pageNo" required />
+            </div>
+            </form>
+            <br />
+            <div class="check-text">
+                <label><input
+          type="checkbox"
+          [(ngModel)]="isChecked"
+          (change)="onCheckboxChange()"
+        />
+        Verified Okay
+      </label>
+
+                <br />
+                <textarea name="" id="" cols="40" rows="5" [(ngModel)]="textarea"></textarea>
+            </div>
+
+            <button class="btn-soft-primary" id="sliceData" (click)="saveValidation()">
+      Save This Validation</button
+    >
+    <br /><br />
+    <button class="btn-soft-primary" (click)="nextAnnotateData()" [disabled]="!nextannClicked">Next Annotation</button
+    ><br /><br />
+    <button class="btn-soft-primary" (click)="previousAnnotateData()" [disabled]="!previousannClicked">
+      Previous Annotation</button
+    ><br /><br />
+    <button class="btn-soft-primary" (click)="sliceData()">
+      End Validation
+    </button>
+            <br /><br />
+        </div>
+    </div>

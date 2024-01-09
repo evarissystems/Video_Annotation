@@ -1,0 +1,121 @@
+<app-loader></app-loader>
+<div class="container-fluid">
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box d-flex align-items-center justify-content-between">
+                <h4 class="mb-0 font-size-18">Dashboard</h4>
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <ng-container>
+                            <li class="breadcrumb-item">
+                                <a href="javascript: void(0);">Dashboards</a>
+                            </li>
+                            <li class="breadcrumb-item active">Dashboard</li>
+                        </ng-container>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end page title -->
+
+    <!-- Annotation Table -->
+    <div class="table-data" *ngIf="videoAnnotator">
+        <div class="order">
+            <div class="head">
+                <h3>Task Status</h3>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Sr No</th>
+
+                        <th>Video Name</th>
+                        <th>Description</th>
+                        <th>Date</th>
+                        <th>Annotation</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let video of videos; let rowIndex = index; let i = index" #rowRef>
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ video.bookName }}</td>
+                        <td>{{ video.description }}</td>
+                        <td>{{ video.dateOn }}</td>
+                        <td>
+                            <button class="btn btn-outline-primary" (click)="getCellValue(rowRef, rowIndex)" [disabled]="video.status === 'Done'">
+                Annotate
+              </button>
+                        </td>
+                        <td>{{ video.status }}</td>
+                        <!--   <td>{{ user.managerName }}</td>
+            <td>{{ user.assignDate }}</td>
+            <td>{{ user.deadLine }}</td>
+           
+            <td>{{ user.status }}</td>
+            <td>
+              <button
+                class="btn btn-outline-primary mb-1 mt-4 shadow-sm btn-sm"
+                (click)="getCellValue(rowRef, rowIndex)"
+              >
+                Start
+              </button>
+            </td> -->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Validation Table -->
+    <div class="table-data" *ngIf="videoValidator">
+        <div class="order">
+            <div class="head">
+                <h3>Task Status</h3>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Sr No</th>
+
+                        <th>Video Name</th>
+                        <th>Description</th>
+                        <th>Date</th>
+                        <th>Validation</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let video of videos; let rowIndex = index; let i = index" #rowRef>
+                        <td>{{ i + 1 }}</td>
+
+                        <td>{{ video.bookName }}</td>
+                        <td>{{ video.description }}</td>
+                        <td>{{ video.dateOn }}</td>
+                        <td>
+                            <button class="btn btn-outline-primary" (click)="getValValue(rowRef, rowIndex)" [disabled]="video.valstatus === 'Done'">
+                Validate
+              </button>
+                        </td>
+                        <td>{{ video.valstatus }}</td>
+                        <!--   <td>{{ user.managerName }}</td>
+            <td>{{ user.assignDate }}</td>
+            <td>{{ user.deadLine }}</td>
+           
+            <td>{{ user.status }}</td>
+            <td>
+              <button
+                class="btn btn-outline-primary mb-1 mt-4 shadow-sm btn-sm"
+                (click)="getCellValue(rowRef, rowIndex)"
+              >
+                Start
+              </button>
+            </td> -->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

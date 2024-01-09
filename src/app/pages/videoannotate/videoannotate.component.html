@@ -1,0 +1,138 @@
+<!-- Loader -->
+<div id="preloader" *ngIf="loading">
+    <div id="status">
+        <div class="spinner-chase">
+            <div class="chase-dot"></div>
+            <div class="chase-dot"></div>
+            <div class="chase-dot"></div>
+            <div class="chase-dot"></div>
+            <div class="chase-dot"></div>
+            <div class="chase-dot"></div>
+        </div>
+    </div>
+</div>
+
+
+<div class="detailsAnnotate">
+    <span class="ids"><b>Video ID :</b> {{ video_ID }}</span>
+    <Span class="ids"><b>Video Name :</b> {{ video_Name }}</Span>
+    <span class="ids"><b>Annotator Name : {{ usrName }}</b>
+  </span>
+    <span class="ids"><b>Slice No : {{this.pageIndex}}</b></span>
+    <!-- <span class="ids"><b>Page No : </b></span> -->
+
+    <span class="ids"><b>Total Slicing Done :{{questionId}} </b> </span>
+</div>
+
+<div class="wrapper">
+    <div class="videoContainer">
+        <video #videoElement controls width="320" height="240" [src]="videoUrl"></video>
+        <div class="btnContainer">
+            <!-- <div class="ctn1"> -->
+            <div class="play-pause">
+                <button class="btn-soft-primary" (click)="playPause()">
+                  Play/Pause
+                </button>
+            </div>
+            <br />
+            <div class="start-endButton">
+                <button class="btn-soft-primary" (click)="startButtonClick()" [disabled]="!isDisabled">
+                Start Time
+              </button> :
+                <input type="text" [(ngModel)]="startTimeInSeconds" required />
+                <br /><br />
+                <button class="btn-soft-primary" (click)="EndButtonClick()" [disabled]="isDisabled">
+                End Time
+              </button> :
+                <input type="text" [(ngModel)]="endTimeInSeconds" required />
+            </div>
+            <br />
+            <!-- </div> -->
+            <div class="ctn2">
+                <!-- end button div was here -->
+                <br /><br />
+                <button class="btn-soft-primary" (click)="nextImageData()" [disabled]="!nextbuttonClicked">
+              Next Page</button
+            ><br /><br />
+            <button class="btn-soft-primary" (click)="previousImageData()" [disabled]="!previousbuttonClicked">
+              Previous Page</button
+            ><br /><br />
+            </div>
+        </div>
+    </div>
+
+    <div class="canvas">
+        <canvas #canvas id="myCanvas" width="600" height="650" style="border: 1px solid grey" ></canvas>
+    </div>
+    <div>
+                <button class="btn-soft-primary" id="capture"  type="button" (click)=drawRect() *ngIf="rectBtnEnble">
+        Draw Rectangle
+      </button>
+                <button class="btn-soft-primary" id="capture" style="margin-left: 5px;" type="button" (click)=imgTotext() *ngIf="pageBtnEnble">
+        Page Extract
+      </button>
+                <br /><br />
+                <button class="btn-soft-primary" style="margin-right: 10px;" type="button" (click)=clearCanvas() *ngIf="eraseBtn">
+        Erase
+      </button>
+
+                <button class="btn-soft-primary" type="button" (click)=croppedData() *ngIf="cropBtn">
+        Get Question
+      </button>
+                <br />
+
+                <form>
+                    <label for="Subject">Topic : </label><br />
+                    <input type="text" class="long-input" name="subject" [(ngModel)]="subject" required /><br />
+                    <label for="Question">Question : </label><br />
+                    <button id="recordButton" (click)="startRecording()" *ngIf="!isUserSpeaking"><i class="mdi mdi-microphone-off"></i></button>
+                    <button id="recordButton" (click)="stopRecording()" *ngIf="isUserSpeaking"><i class="mdi mdi-microphone"></i>
+                    </button>
+                    <!-- <input
+        type="text"
+        class="long-input"
+        name="question"
+        [(ngModel)]="this.question"
+        formControlName="question"
+      /><br /> -->
+                    <textarea style="width: 100%; resize: vertical" rows="4" name="question" [(ngModel)]="question"></textarea>
+                    <label for="Key Person 1">Key Person 1 : </label><br />
+                    <input type="text" class="long-input" name="keyPerson1" [(ngModel)]="keyPerson1" required /><br />
+                    <label for="Key Person 2">Key Person 2 : </label><br />
+                    <input type="text" class="long-input" name="keyPerson2" [(ngModel)]="keyPerson2" required /><br />
+                    <!-- <label for="location">Location : </label><br />
+            <input type="text" class="long-input" name="location" [(ngModel)]="location" required /><br />
+            <label for="Tag 2">Tag 2 : </label><br />
+            <input type="text" class="long-input" name="tag2" [(ngModel)]="tag2" required />
+            <br /> -->
+                    <label for="Tag 2">Page No : </label><br />
+                    <input type="text" class="long-input" name="Page No" [(ngModel)]="pageNo" required />
+                </form>
+                <br />
+                <button class="btn-soft-primary" id="sliceData" (click)="saveData()">
+      Save Question
+    </button>
+                <br /><br />
+                <button class="btn-soft-primary" (click)="nextAnnotateData()" [disabled]="!onclickNext">
+      Next Annotation</button
+    ><br /><br />
+    <button class="btn-soft-primary" (click)="previousAnnotateData()" [disabled]="!onclickPrevious">
+      Previous Annotation</button
+    ><br /><br />
+    <button
+      type="button"
+      class="btn btn-primary"
+      id="sa-warning"
+      (click)="confirm()"
+    >
+      End Annotation
+    </button>
+            </div>
+        </div>
+        <br />
+
+        <br />
+        <!-- buttons -->
+        <!-- <button class="btn-soft-primary" (click)="AnnotateVideo()">
+  Annotate Video
+</button> -->
